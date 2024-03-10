@@ -1,15 +1,9 @@
 [org 0x7c00]
 
-;mov dx, 0x1fb6
-;call print_hex
-
-mov bx, hello
-call print
+mov dx, 0x1fb6
+call print_hex
 
 jmp $
-
-hello:
-    db 'helloooo', 0
 
 %include "print.asm"
 
