@@ -1,20 +1,17 @@
 [org 0x7c00]
 
+;mov dx, 0x1fb6
+;call print_hex
+
 mov bx, hello
 call print
 
-mov bx, bye
-call print 
-
-%include "print_string.asm"
+jmp $
 
 hello:
-    db 'Hello, World', 0
+    db 'helloooo', 0
 
-bye:
-    db 'Goodbye', 0
-
-jmp $
+%include "print.asm"
 
 times 510-($-$$) db 0
 

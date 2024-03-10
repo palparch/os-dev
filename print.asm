@@ -1,18 +1,18 @@
 print:
     pusha
-    mov si, bx
-    mov ah, 0x0e
-
     call run
-    popa
 
 run:
-    inc bx
-    mov bl, al 
+    mov al, [bx]
     cmp al, 0
     je done
+    
+    mov ah, 0x0e
     int 0x10
+    inc bx
+    
     jmp run
 
 done:
+    popa
     ret
