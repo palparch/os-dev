@@ -1,20 +1,33 @@
-get_last_bit:
-    pusha
-    mov bx, dx
-    and bx, 0x00f
-    add bx, 0x30 ; convert into ASCII
-    cmp bl, 0x39
-    jle
-
-
-
 print_hex:
     pusha
-    mov ah, 0x0e
-    mov al, [dx]
-    int 0x10
-    inc dx
+    mov cx, 0
 
+hex_loop:
+    cmp cx, 4
+    je end
+    
+    mov ax, dx
+    and ax, 0x000f 
+    add al, 0x30 
+    cmp al, 0x39
+    jle step2
+    add al, 7
+
+step2:
+    mov bx, HEX_OUT + 5
+    sub bx, cx
+    mov [bx], al
+    ror dx, 4
+
+    add cx, 1
+    jmp hex_loop
+
+end:
+    mov bx, HEX_OUT
+    call print
+
+    popa
+    ret
 
 print:
     pusha
@@ -29,7 +42,7 @@ run_print:
     int 0x10
     inc bx
     
-    jmp run
+    jmp run_print
 
 done:
     popa
